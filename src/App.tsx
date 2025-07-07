@@ -21,43 +21,40 @@ function App() {
          </Grid>
 
          {/* Selector */}
-         <Grid size = { {xs:12, md:3} }>Elemento: Selector
-            <SelectorUI/>
-            
+         <Grid size={{ xs: 12, md: 3 }}>
+            <SelectorUI />
          </Grid>
 
          {/* Indicadores */}
          <Grid container size={{ xs: 12, md: 9 }} >
-
             <Grid size={{ xs: 12, md: 3 }}>
-               <IndicatorUI title='Temperatura (2m)' description='XX°C' />
-            </Grid>
+                     <IndicatorUI title='Temperatura (2m)' description='XX°C' />
+                 </Grid>
 
-            <Grid size={{ xs: 12, md: 3 }}>
-               <IndicatorUI title='Temperatura aparente' description='YY°C' />
-            </Grid>
+                 <Grid size={{ xs: 12, md: 3 }}>
+                     <IndicatorUI title='Temperatura aparente' description='YY°C' />
+                 </Grid>
 
-            <Grid size={{ xs: 12, md: 3 }}>
-               <IndicatorUI title='Velocidad del viento' description='ZZkm/h' />
-            </Grid>
+                 <Grid size={{ xs: 12, md: 3 }}>
+                     <IndicatorUI title='Velocidad del viento' description='ZZkm/h' />
+                 </Grid>
 
-            <Grid size={{ xs: 12, md: 3 }}>
-               <IndicatorUI title='Humedad relativa' description='NN%' />
+                 <Grid size={{ xs: 12, md: 3 }}>
+                     <IndicatorUI title='Humedad relativa' description='NN%' />
             </Grid>
-
          </Grid>
 
-                          {/* Renderizado condicional de los datos obtenidos */}
+         {/* Renderizado condicional de los datos obtenidos */}
 
-                 {dataFetcherOutput.loading && <p>Cargando datos...</p>}
-                 {dataFetcherOutput.error && <p>Error: {dataFetcherOutput.error}</p>}
-                 {dataFetcherOutput.data && (
-                 <>
+         {dataFetcherOutput.loading && <p>Cargando datos...</p>}
+         {dataFetcherOutput.error && <p>Error: {dataFetcherOutput.error}</p>}
+         {dataFetcherOutput.data && (
+         <>
 
-                     {/* Indicadores con datos obtenidos */}
+         {/* Indicadores con datos obtenidos */}
 
-                     <Grid size={{ xs: 12, md: 3 }} >
-                         <IndicatorUI
+         <Grid size={{ xs: 12, md: 3 }} >           
+              <IndicatorUI
                              title='Temperatura (2m)'
                              description={dataFetcherOutput.data.current.temperature_2m + " " + dataFetcherOutput.data.current_units.temperature_2m} />
                      </Grid>
