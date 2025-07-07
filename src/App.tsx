@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid } from '@mui/material';
 import HeaderUI from './components/HeaderUI';
 import AlertUI from './components/AlertUI';
