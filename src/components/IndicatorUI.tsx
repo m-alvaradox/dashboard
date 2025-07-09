@@ -2,10 +2,10 @@
  import CardContent from '@mui/material/CardContent';
  import Typography from '@mui/material/Typography';
 
- interface IndicatorUIProps {
-     title?: string;
-     description?: string;
- }
+interface IndicatorUIProps {
+    title?: string;
+    description?: string;
+}
 
  export default function IndicatorUI(props: IndicatorUIProps) {
      return (
