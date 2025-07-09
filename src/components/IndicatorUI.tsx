@@ -3,7 +3,7 @@ import CardContent from'@mui/material/CardContent';
 import Typography from'@mui/material/Typography';
 
 interface IndicatorUIProps {
-    title: string;
+    title?: string;
     description?: string;
 }
 
