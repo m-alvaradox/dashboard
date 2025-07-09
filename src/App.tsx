@@ -11,10 +11,6 @@ import ChartUI from './components/ChartUI';
 function App() {
    const dataFetcherOutput = DataFetcher();
 
-   // Extraer datos para tabla y gráfico
-   const hourly = dataFetcherOutput.data?.hourly;
-   const hourly_units = dataFetcherOutput.data?.hourly_units;
-
    return (
       <Grid container spacing={5} justifyContent="center" alignItems="center">
 
@@ -91,11 +87,11 @@ function App() {
          {/* Gráfico */}
          <Grid size={{ xs: 6, md: 6 }} sx={{ display: { xs: "none", md: "block" } }}>
             <ChartUI
-               labels={hourly?.time ?? []}
-               values1={hourly?.temperature_2m ?? []}
-               values2={hourly?.wind_speed_10m ?? []}
-               units1={hourly_units?.temperature_2m ?? ''}
-               units2={hourly_units?.wind_speed_10m ?? ''}
+               labels={dataFetcherOutput.data?.hourly?.time.slice(0, 25) ?? []}
+               values1={dataFetcherOutput.data?.hourly?.temperature_2m.slice(0, 25) ?? []}
+               values2={dataFetcherOutput.data?.hourly?.wind_speed_10m.slice(0, 25) ?? []}
+               units1={dataFetcherOutput.data?.hourly_units?.temperature_2m ?? ''}
+               units2={dataFetcherOutput.data?.hourly_units?.wind_speed_10m ?? ''}
                loading={dataFetcherOutput.loading}
                error={dataFetcherOutput.error}
             />
