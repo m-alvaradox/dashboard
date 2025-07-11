@@ -4,14 +4,21 @@ import InputLabel from '@mui/material/InputLabel';
 import Select, { type SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-export default function SelectorUI() {
-  const [cityInput, setCityInput] = useState<string>('');
+type CityName = 'guayaquil' | 'quito' | 'manta' | 'cuenca';
+
+interface SelectorProps {
+  onCityChange: (city: CityName) => void;
+}
+
+export default function SelectorUI({ onCityChange }: SelectorProps) {
+  const [cityInput, setCityInput] = useState<CityName>('guayaquil');
 
   const handleChange = (event: SelectChangeEvent<string>) => {
-    setCityInput(event.target.value);
+    const newCity = event.target.value as CityName;
+    setCityInput(newCity);
+    onCityChange(newCity);
   };
 
-  // Función para capitalizar la primera letra
   const capitalize = (text: string) =>
     text.charAt(0).toUpperCase() + text.slice(1);
 
@@ -25,18 +32,14 @@ export default function SelectorUI() {
         value={cityInput}
         onChange={handleChange}
       >
-        <MenuItem value="" disabled>
-          <em>Seleccione una ciudad</em>
-        </MenuItem>
-        <MenuItem value={"guayaquil"}>Guayaquil</MenuItem>
-        <MenuItem value={"quito"}>Quito</MenuItem>
-        <MenuItem value={"manta"}>Manta</MenuItem>
-        <MenuItem value={"cuenca"}>Cuenca</MenuItem>
+        <MenuItem value="guayaquil">Guayaquil</MenuItem>
+        <MenuItem value="quito">Quito</MenuItem>
+        <MenuItem value="manta">Manta</MenuItem>
+        <MenuItem value="cuenca">Cuenca</MenuItem>
       </Select>
       {cityInput && (
         <p>
-          Información del clima en{' '}
-          <b>{capitalize(cityInput)}</b>
+          Información del clima en <b>{capitalize(cityInput)}</b>
         </p>
       )}
     </FormControl>

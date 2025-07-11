@@ -2,52 +2,37 @@ import { useEffect, useState } from 'react';
 import type { OpenMeteoResponse } from '../types/DashboardTypes';
 
 interface DataFetcherOutput {
-    data: OpenMeteoResponse | null;
-    loading: boolean;
-    error: string | null;
+  data: OpenMeteoResponse | null;
+  loading: boolean;
+  error: string | null;
 }
 
-export default function DataFetcher() : DataFetcherOutput {
+export default function DataFetcher(lat: number, lon: number): DataFetcherOutput {
+  const [data, setData] = useState<OpenMeteoResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-    const [data, setData] = useState<OpenMeteoResponse | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,wind_speed_10m&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m&timezone=America%2FChicago`;
 
-    useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Error HTTP: ${response.status} - ${response.statusText}`);
+        }
+        const result: OpenMeteoResponse = await response.json();
+        setData(result);
+      } catch (err: any) {
+        setError(err instanceof Error ? err.message : "Ocurrió un error desconocido.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-        // Reemplace con su URL de la API de Open-Meteo obtenida en actividades previas
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m,wind_speed_10m&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m&timezone=America%2FChicago`
+    fetchData();
+  }, [lat, lon]); // Se vuelve a ejecutar si cambian lat/lon
 
-        const fetchData = async () => {
-
-            try {
-
-                const response = await fetch(url);
-
-                if (!response.ok) {
-                    throw new Error(`Error HTTP: ${response.status} - ${response.statusText}`);
-                }
-
-                const result: OpenMeteoResponse = await response.json();
-                setData(result);
-
-            } catch (err: any) {
-
-                if (err instanceof Error) {
-                    setError(err.message);
-                } else {
-                    setError("Ocurrió un error desconocido al obtener los datos.");
-                }
-
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-
-    }, []); // El array vacío asegura que el efecto se ejecute solo una vez después del primer renderizado
-
-    return { data, loading, error };
-
+  return { data, loading, error };
 }
