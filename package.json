@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage":"https://m-alvaradox.github.io/dashboard",
+  "homepage": "https://m-alvaradox.github.io/dashboard",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -35,6 +35,7 @@
     "globals": "^16.0.0",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.30.1",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "vite-plugin-pwa": "^1.0.1"
   }
 }
